@@ -9,11 +9,11 @@ show_depth(d_depth);
 
 
 load('a1_s1_t2_skeleton.mat');
-show_joint_3D(d_skel);
+%show_joint_3D(d_skel);
 
 
 load('a1_s1_t2_inertial.mat');
-show_inertial(d_iner);
+%show_inertial(d_iner);
 
 
 
