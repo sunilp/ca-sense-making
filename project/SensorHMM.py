@@ -252,7 +252,7 @@ class SensorHMM(object):
                     pass
 
             guesses.append(bestAction)
-            probabilities.append(probs)
+            probabilities.append(bestLL)
         return guesses,probabilities
 
 

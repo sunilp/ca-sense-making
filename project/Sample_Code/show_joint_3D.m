@@ -2,6 +2,9 @@ function show_joint_3D(skeleton)
 
 total_joint = 20;
 
+hh = figure;
+axis tight manual % this ensures that getframe() returns a consistent size
+filename = 'testAnimated.gif';
 
 J = [1, 2, 3, 2, 5, 6, 7, 2, 9,  10, 11, 4,  13, 14, 15, 4,  17, 18, 19;
      2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
@@ -62,5 +65,15 @@ for i = 1:num_frame
     %axis off;
     set(gcf,'nextplot','replacechildren','Position', [10, 10, 400, 1000]); % original [100 100 200 500]
     
-    pause(1/20);
+    frame = getframe(hh); 
+    im = frame2im(frame); 
+    [imind,cm] = rgb2ind(im,256); 
+      
+    if i == 1 
+       imwrite(imind,cm,filename,'gif', 'Loopcount',inf); 
+    else 
+       imwrite(imind,cm,filename,'gif','WriteMode','append'); 
+    end 
+    
+    %pause(1/20);
 end
