@@ -229,14 +229,18 @@ class SensorHMM(object):
             p.show()
 
 
-    def predict(self,testing_data):
+    def predict(self,testing_data,single=False):
         probabilities = []
         guesses = []
         
-
-        for Xs,ys in [(Xs,ys) for Xs,ys in testing_data if ys in self.actions]:
+        #if ys in self.actions
+        filtered_testing_data = testing_data
+        if not single:
+            filtered_testing_data = [(Xs,ys) for Xs,ys in testing_data if ys in self.actions]
+            
+        for Xs,ys in filtered_testing_data:
             X,L = self.get_hmm_formatted_features([(Xs,ys)],ys)
-
+            #print("hmm got is",X,L)
             bestLL = float("-inf")
             bestAction = None
             probs = {}
@@ -254,6 +258,8 @@ class SensorHMM(object):
             guesses.append(bestAction)
             probabilities.append(bestLL)
         return guesses,probabilities
+    
+    
 
 
     def plot_confusion_matrix(self,cm, classes,
